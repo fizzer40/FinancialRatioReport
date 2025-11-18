@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+
+# Virtual environments
+venv/
+.env/
+
+
+# Data
+*.xlsx
+*.csv
+!/data/tickers_master.csv
+
+
+# IDE
+.vscode/
+.DS_Store

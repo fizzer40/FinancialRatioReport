@@ -1,0 +1,38 @@
+name: Daily Financial Scan
+
+
+on:
+    schedule:
+    - cron: "0 6 * * *" # Every day at 06:00 UTC
+    workflow_dispatch: # Allows manual triggering
+
+
+jobs:
+    run-scan:
+        runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repo
+        uses: actions/checkout@v3
+
+        - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+            python-version: '3.10'
+
+
+        - name: Install dependencies
+        run: |
+        pip install -r requirements.txt
+
+
+        - name: Run script
+        run: |
+        python financial_ratio_report.py
+
+
+        - name: Upload spreadsheet artifact
+        uses: actions/upload-artifact@v3
+        with:
+        name: ratios-latest
+        path: data/ratios_latest.xlsx
+        retention-days: 14
